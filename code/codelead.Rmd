@@ -1,6 +1,8 @@
 ---
 title: "Untitled"
-output: html_document
+output:
+  html_document: default
+  pdf_document: default
 date: "2024-10-03"
 ---
 
@@ -8,22 +10,51 @@ date: "2024-10-03"
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## R Markdown
+#question 2a
+```{r}
+library(ggplot2)
+library(dplyr)
+library(tidyverse)
+leaddata<-read.csv("/Users/helenwolde/Desktop/consulting/consulting/DataRaw/lead-iq-01.csv")
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+ggplot(leaddata, aes(x = Smelter, y = IQ, fill = Smelter)) +
+  geom_boxplot() +
+  ylim(40, 1000) +  # Adjust y-axis limits
+  labs(title = "IQ Levels by Location", x = "Location", y = "IQ Level") +
+  theme_minimal()
 
-```{r cars}
-summary(cars)
+
 ```
 
-## Including Plots
-
-You can also embed plots, for example:
-
-```{r pressure, echo=FALSE}
-plot(pressure)
+#question2b
+```{r}
+library(knitr)
+library(dplyr)
+library(pander)
+df_summary <- leaddata %>%
+  group_by(Smelter) %>%
+  summarize(
+    Mean_IQ = mean(IQ, na.rm = TRUE),
+    SD_IQ = sd(IQ, na.rm =TRUE)
+  )
+pander(df_summary, caption = "Mean and Standard deviation of IQ by Location")
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+The mean IQ score in the Far smelter location is 17.9 points higher than that of the Near location. This difference may suggest that environmental, socioeconomic, or other factors associated with the locations could be impacting IQ levels.
+
+The standard deviation for the Far location is 111.9, which appears unusually high and may suggest that there is significant variability in IQ scores among individuals in this group.
+
+The standard deviation for the Near location is 12.17, indicating that the IQ scores are more closely clustered around the mean compared to the Far location.
+
+#Question 2c
+```{r}
+summary_stats <- leaddata %>%
+  group_by(Smelter) %>%
+  summarize(
+    Mean_IQ = mean(IQ),
+    SD_IQ = sd(IQ)
+  )
+print(summary_stats)
+```
+
