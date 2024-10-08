@@ -6,7 +6,7 @@ Directory structure:
 File|Description
 -----|---------------
 Background|contains background information for the analysis (e.g., references)
-Code|contains all R scripts for this project
+Code|contains all R scripts for this homework/project
 DataRaw|contains all raw data provided by investigators
 DataProcessed|contains the processed data used for the analyses
-Reports|contains all output, markdown files, and final report
+Reports|contains all output, markdown files, and final report for future
