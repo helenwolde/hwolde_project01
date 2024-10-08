@@ -17,6 +17,7 @@ library(dplyr)
 library(tidyverse)
 leaddata<-read.csv("/Users/helenwolde/Desktop/consulting/consulting/DataRaw/lead-iq-01.csv")
 
+leaddata[10,2]<-99 #changing 999 from 99
 
 ggplot(leaddata, aes(x = Smelter, y = IQ, fill = Smelter)) +
   geom_boxplot() +
@@ -57,4 +58,16 @@ summary_stats <- leaddata %>%
   )
 print(summary_stats)
 ```
+
+#2d In-line calculations
+```{r}
+far_iq<-leaddata %>% filter(Smelter=="Far") %>% select(IQ)
+sum(far_iq)/nrow(far_iq)
+
+near_iq<-leaddata %>% filter(Smelter=="Near") %>% select(IQ)
+sum(near_iq)/nrow(near_iq)
+
+```
+
+
 
